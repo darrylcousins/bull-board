@@ -1,0 +1,29 @@
+{
+  "name": "bull-board",
+  "version": "1.0.0",
+  "description": "Simple express app to serve bull-board admin",
+  "type": "module",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/darrylcousins/bull-board.git"
+  },
+  "author": "Darryl Cousins <darryljcousins@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/darrylcousins/bull-board/issues"
+  },
+  "homepage": "https://github.com/darrylcousins/bull-board#readme",
+  "dependencies": {
+    "@bull-board/express": "^5.1.2",
+    "bullmq": "^3.12.0",
+    "dotenv": "^16.3.0",
+    "express": "^4.18.2"
+  }
+}
