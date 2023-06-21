@@ -11,6 +11,9 @@ import { rechargeQueue } from "./queue.js";
 
 const port = process.env.NODE_PORT || 3000;
 
+// eg when using proxy in nginx under a directory path name http://.../bullmq
+const path_prefix = process.env.NODE_PATH || "bullmq";
+
 const getHashedPassword = (password) => {
   const sha256 = crypto.createHash('sha256');
   const hash = sha256.update(password).digest('base64');
@@ -29,7 +32,7 @@ const bullBoard = createBullBoard({
   ],
   serverAdapter: serverAdapter,
 });
-serverAdapter.setBasePath("/admin");
+serverAdapter.setBasePath(`/${path_prefix}/admin`);
 /* End Bullboard */
 
 /* Express */
@@ -68,7 +71,8 @@ const requireAuth = (req, res, next) => {
 
   
 /* Routes */
-//app.use("/admin", serverAdapter.getRouter());
+// not this one
+//app.use(`/${path_prefix}/admin`, requireAuth, serverAdapter.getRouter());
 app.use('/admin', requireAuth, serverAdapter.getRouter());
 
 app.get("/", requireAuth, async function (req, res) {
@@ -97,7 +101,7 @@ app.post('/login', (req, res) => {
     res.cookie('AuthToken', authToken);
 
     // Redirect user to the protected page
-    res.redirect('/admin');
+    res.redirect(`/${path_prefix}/admin`);
   } else {
     res.render('login', {
       message: 'Invalid username or password',
